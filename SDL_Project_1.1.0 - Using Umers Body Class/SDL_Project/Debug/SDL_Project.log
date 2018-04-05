@@ -1,0 +1,5 @@
+﻿  Assignment1.cpp
+c:\users\user\downloads\sdl_project_1.1.0 - using umers body class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment1.cpp(94): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\user\downloads\sdl_project_1.1.0 - using umers body class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment1.cpp(95): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  SDL_Project.vcxproj -> C:\Users\User\Downloads\SDL_Project_1.1.0 - Using Umers Body Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.exe
+  SDL_Project.vcxproj -> C:\Users\User\Downloads\SDL_Project_1.1.0 - Using Umers Body Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.pdb (Partial PDB)
