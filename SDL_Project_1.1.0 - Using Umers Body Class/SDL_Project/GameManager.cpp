@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Timer.h"
 #include "Assignment1.h"
+#include "Assignment2.h"
 #include <iostream>
 
 GameManager::GameManager() {
@@ -34,16 +35,17 @@ bool GameManager::OnCreate() {
 		return false;
 	}
 
-	currentScene = new Assignment1(ptr->GetSDL_Window());//create a new scene 
+	currentScene = new Assignment1(ptr->GetSDL_Window());
 	if (currentScene == nullptr) {
 		OnDestroy();
+	}
+
+
+	if (currentScene->OnCreate() == false) {
+		currentScene->OnDestroy();
 		return false;
 	}
 
-	if (currentScene->OnCreate() == false) {
-		OnDestroy();
-		return false;
-	}
 	return true;
 }
 
@@ -56,22 +58,49 @@ void GameManager::Run() {
 			switch (event.type) {
 			case SDL_QUIT: isRunning = false;
 				break;
+			case SDL_KEYDOWN:
+				if (event.key.keysym.scancode == SDL_SCANCODE_F1) {
+					SwitchScene(new Assignment1(ptr->GetSDL_Window()));
+				}
+				else if (event.key.keysym.scancode == SDL_SCANCODE_F2) {
+					SwitchScene(new Assignment2(ptr->GetSDL_Window()));
+				}
+				break;
 			}
+
 			currentScene->HandleEvents(event);
+
 		}
 
 		timer->UpdateFrameTicks();
 		currentScene->Update(timer->GetDeltaTime());
 		currentScene->Render();
 
+
+
 		/// Keeep the event loop running at a proper rate
 		SDL_Delay(timer->GetSleepTime(60)); ///60 frames per sec
 	}
 }
 
+void GameManager::SwitchScene(Scene* scene){
+	currentScene->OnDestroy();
+	if (currentScene) delete currentScene;
+	currentScene = nullptr;
+	currentScene = scene;
+	if (currentScene == nullptr) {
+		OnDestroy();
+		isRunning = false;
+	}
+	if (currentScene->OnCreate() == false) {
+		currentScene->OnDestroy();
+		isRunning = false;
+	}
+}
+
 GameManager::~GameManager() {}
 
-void GameManager::OnDestroy(){//Destroys and pointers that were created
+void GameManager::OnDestroy() {//Destroys and pointers that were created
 	if (ptr) delete ptr;
 	if (timer) delete timer;
 	if (currentScene) delete currentScene;

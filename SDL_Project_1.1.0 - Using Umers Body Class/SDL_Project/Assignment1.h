@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include <SDL.h>
 
-#define NUM_BODIES 3
+#define NUM_BODIES 2
 
 using namespace MATH;
 class Assignment1 : public Scene {

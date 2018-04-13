@@ -1,8 +1,6 @@
 #include "Assignment1.h"
 #include "Body.h"
 #include <SDL.h>
-#include "VMath.h"
-#include <iostream>
 Assignment1::Assignment1(SDL_Window* sdlWindow_) {
 	window = sdlWindow_;
 	elapsedTime = 0.0f;
@@ -22,14 +20,11 @@ bool Assignment1::OnCreate() {
 
 	projectionMatrix = MMath::viewportNDC(w, h) * MMath::orthographic(0.0f, 30.0f, 0.0f, 15.0f, 0.0f, 1.0f);
 
-	/*for (int i = 0; i < NUM_BODIES; i++) {
+	for (int i = 0; i < NUM_BODIES; i++) {
 		bodies[i] = new Body("jetskiSmall.bmp", 2.0f, Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.00f, 0.0f));
-	}*/
+		bodies[i]->gravity = true;
+	}
 
-	bodies[0] = new Body("Sun.bmp", 150.0f, Vec3(5.0f, 5.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[1] = new Body("Mars.bmp", 1.0f, Vec3(16.0f, 9.0f, 0.0f), Vec3(6.0f, -3.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[2] = new Body("SunBlue.bmp", 200.0f, Vec3(20.0f, 13.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	
 	if (bodies[0] == nullptr) {
 		return false;
 	}
@@ -46,32 +41,14 @@ void Assignment1::OnDestroy() {
 }
 
 void Assignment1::Update(const float time) {
-	Vec3 a, b;
-	float a_Mag, b_Mag, gravityA, gravityB;
-
-	VMath math;
-
 	if (btnPressed) {
 		elapsedTime += time;
 
-		a = bodies[0]->pos - bodies[1]->pos;
-		b = bodies[2]->pos - bodies[1]->pos;
-
-		a_Mag = math.mag(a);
-		b_Mag = math.mag(b);
-
-		a = math.normalize(a);
-		b = math.normalize(b);
-
-		gravityA = (bodies[0]->mass*bodies[1]->mass) / (a_Mag * a_Mag);
-		gravityB = (bodies[2]->mass*bodies[1]->mass) / (b_Mag * b_Mag);
-		
-		a = a * gravityA;
-		b = b * gravityB;
-
-		a = a + b;
-
-		bodies[1]->ApplyForce(a);
+		if (frameCount == 1) {
+			for each(Body* body in bodies) {
+				body->ApplyForce(Vec3(1000.0f, 1000.0f, 0.0f));
+			}
+		}
 
 		for each(Body* body in bodies) {
 			if (body) body->Update(time);
@@ -84,7 +61,6 @@ void Assignment1::Render() {
 	SDL_Rect imageRectangle;
 	SDL_Surface *screenSurface = SDL_GetWindowSurface(window);
 	SDL_FillRect(screenSurface, nullptr, SDL_MapRGB(screenSurface->format, 0xff, 0xff, 0xff));//clears the screen
-
 
 	for each (Body* body in bodies)
 	{
@@ -101,7 +77,7 @@ void Assignment1::Render() {
 }
 
 void Assignment1::HandleEvents(const SDL_Event &e) {
-	if (e.type == SDL_KEYDOWN) {
+	if (e.type == SDL_KEYDOWN  && e.key.keysym.scancode != SDL_SCANCODE_F1 && e.key.keysym.scancode != SDL_SCANCODE_F2) {
 		btnPressed = true;
 	}
 	else if (e.type == SDL_KEYUP) {

@@ -6,8 +6,8 @@
 Window::Window(int width_, int height_){
 	screenSurface = nullptr;
 	window = nullptr;
-	width = width_;
-	height = height_;
+	windowSize.Load(width_, height_, 0.0f);
+	windowPos.Load(100.0f, 50.0f, 0.0f);
 }
 
 //Creates a Window
@@ -17,7 +17,7 @@ bool Window::OnCreate(){
 		return false;
 	}
 
-	window = SDL_CreateWindow("My First Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("My First Window", windowPos.x, windowPos.y, windowSize.x, windowSize.y, SDL_WINDOW_SHOWN);
 	if (window == nullptr) { // if you cant create a window return false;
 		std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
 		return false;
@@ -44,7 +44,6 @@ void Window::OnDestroy(){
 	
 	///Exit the SDL subsystems
 	SDL_Quit();
-
 }
 
 Window::~Window(){}

@@ -17,9 +17,10 @@ private:
 	class Window *ptr;
 	class Timer *timer;
 	bool isRunning;
+	bool pause;
 	Scene *currentScene;
 	SDL_Event event;
-
+	void SwitchScene(Scene* scene);
 public:
 	GameManager();
 	~GameManager();

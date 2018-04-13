@@ -14,6 +14,7 @@ private:
 	SDL_Surface *bodyImage;
 	
 public:
+	bool gravity = false;
 	Body(char* imageName ,float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_);
 	~Body();
 	void Update(const float deltaTime);
