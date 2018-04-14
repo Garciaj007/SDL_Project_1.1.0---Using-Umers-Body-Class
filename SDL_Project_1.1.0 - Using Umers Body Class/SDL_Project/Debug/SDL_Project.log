@@ -1,6 +1,2 @@
-﻿  GameManager.cpp
-c:\users\user\downloads\sdl_project_1.1.0 - using umers body class\sdl_project_1.1.0 - using umers body class\sdl_project\window.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\user\downloads\sdl_project_1.1.0 - using umers body class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment2.h(8): warning C4005: 'NUM_BODIES': macro redefinition
-  c:\users\user\downloads\sdl_project_1.1.0 - using umers body class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment1.h(8): note: see previous definition of 'NUM_BODIES'
-  SDL_Project.vcxproj -> C:\Users\User\Downloads\SDL_Project_1.1.0 - Using Umers Body Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.exe
-  SDL_Project.vcxproj -> C:\Users\User\Downloads\SDL_Project_1.1.0 - Using Umers Body Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.pdb (Partial PDB)
+﻿  SDL_Project.vcxproj -> D:\Coding Projects\C++\SDL_Project_1.1.0---Using-Umers-Body-Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.exe
+  SDL_Project.vcxproj -> D:\Coding Projects\C++\SDL_Project_1.1.0---Using-Umers-Body-Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.pdb (Partial PDB)
