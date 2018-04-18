@@ -77,7 +77,7 @@ void Assignment1::Render() {
 }
 
 void Assignment1::HandleEvents(const SDL_Event &e) {
-	if (e.type == SDL_KEYDOWN  && e.key.keysym.scancode != SDL_SCANCODE_F1 && e.key.keysym.scancode != SDL_SCANCODE_F2) {
+	if (e.type == SDL_KEYDOWN  && e.key.keysym.scancode != SDL_SCANCODE_F1 && e.key.keysym.scancode != SDL_SCANCODE_F2 && e.key.keysym.scancode != SDL_SCANCODE_F3) {
 		btnPressed = true;
 	}
 	else if (e.type == SDL_KEYUP) {

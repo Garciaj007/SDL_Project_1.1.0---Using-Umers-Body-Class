@@ -1,8 +1,8 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 #include <SDL.h>
-#include "Scene.h"
 
+class Scene;
 class GameManager {
 private:
 	/// These are called "forward declarations" The idea is that a pointer is 
@@ -17,10 +17,9 @@ private:
 	class Window *ptr;
 	class Timer *timer;
 	bool isRunning;
-	bool pause;
 	Scene *currentScene;
 	SDL_Event event;
-	void SwitchScene(Scene* scene);
+	void SwitchScene(Scene *scene);
 public:
 	GameManager();
 	~GameManager();

@@ -2,10 +2,12 @@
 #define BODY_H
 #include "Vector.h"
 #include "SDL.h"
+#include <string>
 using namespace MATH; 
 
 class Body {
 public:
+	std::string name;
 	Vec3 pos;
 	Vec3 vel;
 	float mass;
@@ -16,6 +18,7 @@ private:
 public:
 	bool gravity = false;
 	Body(char* imageName ,float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_);
+	Body(std::string _name, char* imageName, float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_);
 	~Body();
 	void Update(const float deltaTime);
 	void ApplyForce(Vec3 force);

@@ -13,9 +13,6 @@ Assignment2::Assignment2(SDL_Window* sdlWindow_) {
 	}
 }
 
-Assignment2::~Assignment2() {
-}
-
 bool Assignment2::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
@@ -103,7 +100,7 @@ void Assignment2::Render() {
 }
 
 void Assignment2::HandleEvents(const SDL_Event &e) {
-	if (e.type == SDL_KEYDOWN && e.key.keysym.scancode != SDL_SCANCODE_F1 && e.key.keysym.scancode != SDL_SCANCODE_F2) {
+	if (e.type == SDL_KEYDOWN && e.key.keysym.scancode != SDL_SCANCODE_F1 && e.key.keysym.scancode != SDL_SCANCODE_F2 && e.key.keysym.scancode != SDL_SCANCODE_F3) {
 		btnPressed = true;
 	}
 	else if (e.type == SDL_KEYUP) {

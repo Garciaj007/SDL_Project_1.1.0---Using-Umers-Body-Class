@@ -10,6 +10,7 @@
 		Timer();
 		~Timer();
 
+		float TimeScale = 1000;
 		void Start();
 		void UpdateFrameTicks();
 		float GetDeltaTime() const;

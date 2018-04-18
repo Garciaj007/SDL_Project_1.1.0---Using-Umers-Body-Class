@@ -3,6 +3,7 @@
 #include "Timer.h"
 #include "Assignment1.h"
 #include "Assignment2.h"
+#include "Assignment3.h"
 #include <iostream>
 
 GameManager::GameManager() {
@@ -30,16 +31,16 @@ bool GameManager::OnCreate() {
 	}
 
 	timer = new Timer(); //create a new timer and assign it to a ptr
+	timer->TimeScale = 100000.0f;
 	if (timer == nullptr) { // if timer wasnt created, OnDestroyed, return false
 		OnDestroy();
 		return false;
 	}
 
-	currentScene = new Assignment1(ptr->GetSDL_Window());
+	currentScene = new Assignment3(ptr->GetSDL_Window());
 	if (currentScene == nullptr) {
 		OnDestroy();
 	}
-
 
 	if (currentScene->OnCreate() == false) {
 		currentScene->OnDestroy();
@@ -59,11 +60,14 @@ void GameManager::Run() {
 			case SDL_QUIT: isRunning = false;
 				break;
 			case SDL_KEYDOWN:
-				if (event.key.keysym.scancode == SDL_SCANCODE_F1) {
+				if (event.key.keysym.scancode == SDL_SCANCODE_F1){
 					SwitchScene(new Assignment1(ptr->GetSDL_Window()));
 				}
 				else if (event.key.keysym.scancode == SDL_SCANCODE_F2) {
 					SwitchScene(new Assignment2(ptr->GetSDL_Window()));
+				}
+				else if (event.key.keysym.scancode == SDL_SCANCODE_F3) {
+					SwitchScene(new Assignment3(ptr->GetSDL_Window()));
 				}
 				break;
 			}
@@ -86,12 +90,13 @@ void GameManager::Run() {
 void GameManager::SwitchScene(Scene* scene){
 	currentScene->OnDestroy();
 	if (currentScene) delete currentScene;
-	currentScene = nullptr;
 	currentScene = scene;
+
 	if (currentScene == nullptr) {
 		OnDestroy();
 		isRunning = false;
 	}
+
 	if (currentScene->OnCreate() == false) {
 		currentScene->OnDestroy();
 		isRunning = false;

@@ -18,7 +18,6 @@ private:
 	bool btnPressed = false;
 public:
 	Assignment2(SDL_Window* sdlWindow);
-	~Assignment2();
 	bool OnCreate();
 	void OnDestroy();
 	void Update(const float time);

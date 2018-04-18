@@ -21,7 +21,7 @@ void Timer::Start() {
 }
 
 float Timer::GetDeltaTime() const {
-	return (float(currTicks - prevTicks)) / 1000.0f;
+	return (float(currTicks - prevTicks)) / TimeScale;
 }
 
 unsigned int Timer::GetSleepTime(const unsigned int fps) const {
