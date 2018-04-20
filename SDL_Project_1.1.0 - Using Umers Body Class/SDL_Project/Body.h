@@ -8,6 +8,7 @@ using namespace MATH;
 class Body {
 public:
 	std::string name;
+	float radius;
 	Vec3 pos;
 	Vec3 vel;
 	float mass;
@@ -19,7 +20,7 @@ public:
 	bool gravity = false;
 	Body(char* imageName ,float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_);
 	Body(std::string _name, char* imageName, float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_);
-	~Body();
+
 	void Update(const float deltaTime);
 	void ApplyForce(Vec3 force);
 

@@ -4,6 +4,7 @@
 #include "Assignment1.h"
 #include "Assignment2.h"
 #include "Assignment3.h"
+#include "CollisionsTest.h"
 #include <iostream>
 
 GameManager::GameManager() {
@@ -11,7 +12,6 @@ GameManager::GameManager() {
 	isRunning = true;
 	currentScene = nullptr;
 }
-
 
 /// In this OnCreate() method, fuction, subroutine, whatever the word, 
 bool GameManager::OnCreate() {

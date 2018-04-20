@@ -3,6 +3,9 @@
 #include <SDL.h>
 #include "VMath.h"
 #include <iostream>
+#include "Collider.h"
+
+
 Assignment3::Assignment3(SDL_Window* sdlWindow_) {
 	window = sdlWindow_;
 	elapsedTime = 0.0f;
@@ -16,15 +19,14 @@ Assignment3::Assignment3(SDL_Window* sdlWindow_) {
 
 bool Assignment3::OnCreate() {
 	int w, h;
-	Vec3 ScreenSize;
-
 	SDL_GetWindowSize(window, &w, &h);
-	ScreenSize = Vec3(28.5f, 16.0f, 0.0f);
-	projectionMatrix = MMath::viewportNDC(w, h) * MMath::orthographic(0.0f, 30.0f, 0.0f, 15.0f, 0.0f, 1.0f);
-
+	float aspectRatio = (float)h / (float)w;
+	projectionMatrix = MMath::viewportNDC(w, h) * MMath::orthographic(0.0f, 60.0f, 0.0f * aspectRatio, 60.0f *aspectRatio , 0.0f, 1.0f);
+	ipm = MMath::inverse(projectionMatrix);
+	Vec3 ScreenSize(60.0f, 60 * aspectRatio, 0.0f);
 
 	//if the sun weighed 1000000 units, our planets would be 3.00300 units, or moon, weights 0.0370741 and small objects 0.0002625
-	bodies[0] = new Body("Sun", "Sun.bmp", 1000000.0f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	bodies[0] = new Body("Sun", "Sun.bmp", 1000000.0f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.00f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	bodies[1] = new Body("Planet1", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x/2 - 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	bodies[2] = new Body("Planet2", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	bodies[3] = new Body("Small moon1", "Moon.bmp", 0.037074f, Vec3(2.0f, 4.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
@@ -34,9 +36,16 @@ bool Assignment3::OnCreate() {
 	bodies[7] = new Body("Smallobject3","Asteroid.bmp", 0.0002625f, Vec3(7.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 
 	for (int i = 0; i < NUM_BODIES; i++) {
-		imagesSize[i] = Vec3(bodies[i]->getImage()->w, bodies[i]->getImage()->h, 0.0f);
-		//imagesSize[i] = MMath::unOrtho(projectionMatrix) * imagesSize[i];
-		imagesSize[i].print();
+		Vec3 upperLeft(0.0f, 0.0f, 0.0f);
+		Vec3 lowerRight(bodies[i]->getImage()->w, bodies[i]->getImage()->h, 0.0f);
+
+		upperLeft = ipm * upperLeft;
+		lowerRight = ipm * lowerRight;
+
+		float radius = (lowerRight.x - upperLeft.x) / 2.0f;
+
+		std::cout << radius << " , " << radius << std::endl;
+		bodies[i]->radius = radius;
 	}
 
 	if (bodies[0] == nullptr) {
@@ -59,7 +68,17 @@ void Assignment3::Update(const float time) {
 	if (btnPressed) {
 		elapsedTime += time;
 
-		Gravity();
+		AGravity(bodies, NUM_BODIES);
+
+		for (int i = 0; i < NUM_BODIES; i++) {
+			for (int j = 0; j < NUM_BODIES; j++) {
+				if (i != j) {
+					if (Collider::Collided(*bodies[i], *bodies[j])) {
+						Collider::HandleCollision(*bodies[i], *bodies[j]);
+					}
+				}
+			}
+		}
 
 		for each(Body* body in bodies) {
 			if (body) body->Update(time);
@@ -69,31 +88,6 @@ void Assignment3::Update(const float time) {
 }
 
 void Assignment3::Gravity() {
-	/*
-	//bodies[1] is being attracted;
-	Vec3 a, b;
-	float a_Mag, b_Mag, gravityA, gravityB;
-
-	a = bodies[0]->pos - bodies[1]->pos;
-	b = bodies[2]->pos - bodies[1]->pos;
-
-	a_Mag = VMath::mag(a);
-	b_Mag = VMath::mag(b);
-
-	a = VMath::normalize(a);
-	b = VMath::normalize(b);
-
-	gravityA = (bodies[0]->mass*bodies[1]->mass) / (a_Mag * a_Mag);
-	gravityB = (bodies[2]->mass*bodies[1]->mass) / (b_Mag * b_Mag);
-
-	a = a * gravityA;
-	b = b * gravityB;
-
-	a = a + b;
-
-	bodies[1]->ApplyForce(a);
-	*/
-
 	for each(Body* body in bodies) {
 		if (body->name != "Sun") {
 			Vec3 a;
@@ -110,20 +104,27 @@ void Assignment3::Gravity() {
 			body->ApplyForce(a);
 		}
 	}
-	/*
-	Vec3 a;
-	float a_Mag, gravityA;
+}
 
-	a = bodies[0]->pos - bodies[1]->pos; //A^Vector = otherBody.position - this.position
 
-	a_Mag = VMath::mag(a); //the distance between object = |(A^Vector)|;
-	a = VMath::normalize(a); // the direction = ^(A^Vector)
+void Assignment3::AGravity(Body* objects[], int num_Objects) {
+	for (int j = 0; j < num_Objects; j++) {
+		Vec3* force = new Vec3[num_Objects];
+		for (int i = 0; i < num_Objects; i++) {
+			if (i != j) { 
+				Vec3 direction = bodies[i]->pos - bodies[j]->pos;
 
-	gravityA = (bodies[0]->mass * bodies[1]->mass) / pow(a_Mag, 2); // the magnitude of gravity = otherbody.mass - thisbody.mass / |A|^2 
-	a = a * gravityA; //the final force is the direction * the magnitude of the force of gravity
+				float mag = pow(direction.x, 2) + pow(direction.y, 2);
+				Vec3 normal = VMath::normalize(direction);
 
-	bodies[1]->ApplyForce(a);
-	*/
+				float gravityForce = (bodies[i]->mass * bodies[j]->mass) / mag;
+				force[i] = direction * gravityForce;
+
+				force[0] += force[i];
+			}
+		}
+		objects[j]->ApplyForce(force[0]);
+	}
 }
 
 void Assignment3::Render() {

@@ -18,6 +18,9 @@ Body::Body(char* imageName, float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_) {
 	if (bodyImage == nullptr) {
 		/// What should we do?
 	}
+
+	radius = 1.0f; 
+	name = "NULL";
 }
 
 Body::Body(std::string _name, char* imageName, float mass_, Vec3 pos_, Vec3 vel_, Vec3 accel_) {
@@ -39,10 +42,9 @@ Body::Body(std::string _name, char* imageName, float mass_, Vec3 pos_, Vec3 vel_
 	if (bodyImage == nullptr) {
 		/// What should we do?
 	}
+
+	radius = 1.0f;
 }
-
-Body::~Body() {} /// There is really nothing to do here - yet!
-
 
 void Body::Update(const float deltaTime) {
 	//With Gravity

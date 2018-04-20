@@ -17,6 +17,8 @@
     <ClCompile Include="Assignment2.cpp" />
     <ClCompile Include="Assignment3.cpp" />
     <ClCompile Include="Body.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionsTest.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MMath.cpp" />
@@ -29,6 +31,8 @@
     <ClInclude Include="Assignment2.h" />
     <ClInclude Include="Assignment3.h" />
     <ClInclude Include="Body.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionsTest.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MMath.h" />
@@ -44,7 +48,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{589E5150-A342-42E4-B2D5-F872FC79C932}</ProjectGuid>
     <RootNamespace>SDL_Project</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

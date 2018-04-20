@@ -25,6 +25,7 @@ public:
 	void OnDestroy();
 	void Update(const float time);
 	void Gravity();
+	void AGravity(Body* bodies[], int length);
 	void Render();
 	void HandleEvents(const SDL_Event &e);
 };
