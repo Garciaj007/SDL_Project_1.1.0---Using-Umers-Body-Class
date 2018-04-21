@@ -23,6 +23,7 @@ public:
 
 	void Update(const float deltaTime);
 	void ApplyForce(Vec3 force);
+	std::string ToString();
 
 	/// Just a little helper function
 	SDL_Surface* getImage();

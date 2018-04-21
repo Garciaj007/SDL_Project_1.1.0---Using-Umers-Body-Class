@@ -88,6 +88,10 @@ void Body::ApplyForce(Vec3 force) {
 	accel.z = force.z / mass;
 }
 
+std::string Body::ToString() {
+	return name;
+}
+
 
 SDL_Surface* Body::getImage() {
 	return bodyImage;

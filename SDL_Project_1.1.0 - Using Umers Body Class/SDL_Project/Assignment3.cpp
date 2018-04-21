@@ -27,13 +27,28 @@ bool Assignment3::OnCreate() {
 
 	//if the sun weighed 1000000 units, our planets would be 3.00300 units, or moon, weights 0.0370741 and small objects 0.0002625
 	bodies[0] = new Body("Sun", "Sun.bmp", 1000000.0f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.00f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[1] = new Body("Planet1", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x/2 - 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[2] = new Body("Planet2", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[3] = new Body("Small moon1", "Moon.bmp", 0.037074f, Vec3(2.0f, 4.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[4] = new Body("Small moon2", "Moon.bmp", 0.037074f, Vec3(ScreenSize.x + 3.0f, 10.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[5] = new Body("Smallobject1","Asteroid.bmp", 0.0002625f, Vec3(5.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[6] = new Body("Smallobject2","Asteroid.bmp", 0.0002625f, Vec3(6.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[7] = new Body("Smallobject3","Asteroid.bmp", 0.0002625f, Vec3(7.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	for (int i = 1; i < 11; i++) {
+		bodies[i] = new Body("Planet" + i, "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 - ((float) i * 4), ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	}
+	for (int i = 11; i < 21; i++) {
+		bodies[i] = new Body("Planet" + i, "Mars.bmp", 3.00300f, Vec3(ScreenSize.x + ((float) i * 4), ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	}
+	for (int i = 21; i < 35; i++) {
+		bodies[i] = new Body("Small moon" + i, "Moon.bmp", 0.037074f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2 - ((float) i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	}
+	for (int i = 35; i < 51; i++) {
+		bodies[i] = new Body("Small moon" + i, "Moon.bmp", 0.037074f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2 + ((float) i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	}
+	for (int i = 51; i < NUM_BODIES; i++) {
+		bodies[i] = new Body("Smallobject3" + i, "Asteroid.bmp", 0.0002625f, Vec3((float) i + 2, ScreenSize.y - ((float) i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	}
+	//bodies[1] = new Body("Planet1", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x/2 - 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	//bodies[2] = new Body("Planet2", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	//bodies[3] = new Body("Small moon1", "Moon.bmp", 0.037074f, Vec3(2.0f, 4.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	//bodies[4] = new Body("Small moon2", "Moon.bmp", 0.037074f, Vec3(ScreenSize.x + 3.0f, 10.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	//bodies[5] = new Body("Smallobject1","Asteroid.bmp", 0.0002625f, Vec3(5.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	//bodies[6] = new Body("Smallobject2","Asteroid.bmp", 0.0002625f, Vec3(6.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	//bodies[7] = new Body("Smallobject3","Asteroid.bmp", 0.0002625f, Vec3(7.0f, 1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 
 	for (int i = 0; i < NUM_BODIES; i++) {
 		Vec3 upperLeft(0.0f, 0.0f, 0.0f);
@@ -44,7 +59,6 @@ bool Assignment3::OnCreate() {
 
 		float radius = (lowerRight.x - upperLeft.x) / 2.0f;
 
-		std::cout << radius << " , " << radius << std::endl;
 		bodies[i]->radius = radius;
 	}
 
@@ -98,7 +112,7 @@ void Assignment3::Gravity() {
 			a_Mag = VMath::mag(a);
 			a = VMath::normalize(a);
 
-			gravityA = (bodies[0]->mass * body->mass) / pow(a_Mag, 2);
+			gravityA = 0.00000000006673f * (bodies[0]->mass * body->mass) / pow(a_Mag, 2);
 			a = a* gravityA;
 
 			body->ApplyForce(a);

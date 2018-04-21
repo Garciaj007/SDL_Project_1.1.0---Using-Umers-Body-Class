@@ -12,14 +12,14 @@ bool Collider::Collided(const Body &b1, const Body &b2){
 }
 
 void Collider::HandleCollision(Body& b1, Body& b2) {
-	float e = 1.0f;
+	float epsilon = 0.0f;
 	Vec3 normal = b2.pos - b1.pos;
 	normal = VMath::normalize(normal);
 
 	float v1f = VMath::dot(b1.vel, normal);
 	float v2f = VMath::dot(b2.vel, normal);
-	float v1fnew = ((b1.mass - e * b2.mass) * v1f + (1.0f + e) * b2.mass * v2f) / (b1.mass + b2.mass);
-	float v2fnew = ((b2.mass - e * b1.mass) * v2f + (1.0f + e) * b1.mass * v1f) / (b1.mass + b2.mass);
+	float v1fnew = ((b1.mass - epsilon * b2.mass) * v1f + (1.0f + epsilon) * b2.mass * v2f) / (b1.mass + b2.mass);
+	float v2fnew = ((b2.mass - epsilon * b1.mass) * v2f + (1.0f + epsilon) * b1.mass * v1f) / (b1.mass + b2.mass);
 	b1.vel += (v1fnew - v1f) * normal;
 	b2.vel += (v2fnew - v2f) * normal;
 	return;

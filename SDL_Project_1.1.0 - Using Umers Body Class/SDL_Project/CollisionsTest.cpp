@@ -24,8 +24,8 @@ bool CollisionsTest::OnCreate() {
 	Vec3 ScreenSize(60.0f, 60 * aspectRatio, 0.0f);
 
 	//if the sun weighed 1000000 units, our planets would be 3.00300 units, or moon, weights 0.0370741 and small objects 0.0002625
-	bodies[0] = new Body("Sun", "Sun.bmp", 10.0f, Vec3(5.0f, ScreenSize.y/2, 0.0f), Vec3(500.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[1] = new Body("Planet1", "Mars.bmp", 10.0f, Vec3(ScreenSize.x - 5.0f, ScreenSize.y / 2, 0.0f), Vec3(-500.0f, -0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	bodies[0] = new Body("Sun1", "Sun.bmp", 10.0f, Vec3(5.0f, ScreenSize.y/2, 0.0f), Vec3(500.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	bodies[1] = new Body("Sun2", "Sun.bmp", 10.0f, Vec3(ScreenSize.x - 5.0f, ScreenSize.y / 2 - 0.5, 0.0f), Vec3(-500.0f, -0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	//bodies[2] = new Body("Planet2", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	//bodies[3] = new Body("Small moon1", "Moon.bmp", 0.037074f, Vec3(2.0f, 4.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	//bodies[4] = new Body("Small moon2", "Moon.bmp", 0.037074f, Vec3(ScreenSize.x + 3.0f, 10.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
@@ -40,8 +40,11 @@ bool CollisionsTest::OnCreate() {
 		upperLeft = ipm * upperLeft;
 		lowerRight = ipm * lowerRight;
 
-		float radius = (lowerRight.x - upperLeft.x) / 2.0f;
-		bodies[i]->radius = radius;
+		float width = (lowerRight.x - upperLeft.x) / 2.0f;
+		float height = (lowerRight.y - upperLeft.y) / 2.0f;
+
+		float radius = sqrtf(powf(width, 2.0f) + powf(height, 2.0f));
+		bodies[i]->radius = width;
 	}
 
 	if (bodies[0] == nullptr) {

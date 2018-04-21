@@ -83,7 +83,7 @@ void GameManager::Run() {
 
 
 		/// Keeep the event loop running at a proper rate
-		SDL_Delay(timer->GetSleepTime(60)); ///60 frames per sec
+		SDL_Delay(timer->GetSleepTime(30)); ///60 frames per sec
 	}
 }
 
