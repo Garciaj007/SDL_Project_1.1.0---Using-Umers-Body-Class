@@ -15,8 +15,8 @@ GameManager::GameManager() {
 
 /// In this OnCreate() method, fuction, subroutine, whatever the word, 
 bool GameManager::OnCreate() {
-	const int SCREEN_WIDTH = 920; //Const screen Width
-	const int SCREEN_HEIGHT = 640; //Const screen Height
+	const int SCREEN_WIDTH = 1200; //Const screen Width
+	const int SCREEN_HEIGHT = 680; //Const screen Height
 
 	ptr = new Window(SCREEN_WIDTH, SCREEN_HEIGHT);//Creates a window and assigns it to a pointer
 	if (ptr == nullptr) { //if there is no Window Created, call OnDestroyed & return false
@@ -31,13 +31,12 @@ bool GameManager::OnCreate() {
 	}
 
 	timer = new Timer(); //create a new timer and assign it to a ptr
-	timer->TimeScale = 100000.0f;
 	if (timer == nullptr) { // if timer wasnt created, OnDestroyed, return false
 		OnDestroy();
 		return false;
 	}
 
-	currentScene = new Assignment3(ptr->GetSDL_Window());
+	currentScene = new Assignment1(ptr->GetSDL_Window());
 	if (currentScene == nullptr) {
 		OnDestroy();
 	}
@@ -62,12 +61,15 @@ void GameManager::Run() {
 			case SDL_KEYDOWN:
 				if (event.key.keysym.scancode == SDL_SCANCODE_F1){
 					SwitchScene(new Assignment1(ptr->GetSDL_Window()));
+					timer->TimeScale = 1000.0f;
 				}
 				else if (event.key.keysym.scancode == SDL_SCANCODE_F2) {
 					SwitchScene(new Assignment2(ptr->GetSDL_Window()));
+					timer->TimeScale = 1000.0f;
 				}
 				else if (event.key.keysym.scancode == SDL_SCANCODE_F3) {
 					SwitchScene(new Assignment3(ptr->GetSDL_Window()));
+					timer->TimeScale = 100000.0f;
 				}
 				break;
 			}
@@ -83,7 +85,7 @@ void GameManager::Run() {
 
 
 		/// Keeep the event loop running at a proper rate
-		SDL_Delay(timer->GetSleepTime(30)); ///60 frames per sec
+		SDL_Delay(timer->GetSleepTime(60)); ///60 frames per sec
 	}
 }
 

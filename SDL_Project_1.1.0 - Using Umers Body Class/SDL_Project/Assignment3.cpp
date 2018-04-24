@@ -26,22 +26,31 @@ bool Assignment3::OnCreate() {
 	Vec3 ScreenSize(60.0f, 60 * aspectRatio, 0.0f);
 
 	//if the sun weighed 1000000 units, our planets would be 3.00300 units, or moon, weights 0.0370741 and small objects 0.0002625
-	bodies[0] = new Body("Sun", "Sun.bmp", 1000000.0f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.00f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	for (int i = 1; i < 11; i++) {
-		bodies[i] = new Body("Planet" + i, "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 - ((float) i * 4), ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	bodies[0] = new Body("Sun", "SunBlue.bmp", 1000000.0f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.00f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	/*for (int i = 1; i < NUM_BODIES; i++) {
+		bodies[i] = new Body("Smallobject3" + i, "Moon.bmp", 0.0002625f, Vec3((float)i + 2, ScreenSize.y - ((float)i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	}*/
+	/// for 1 < i < 10 
+	for (int i = 0; i < 20; i++) {
+		bodies[i + 1] = new Body("Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 - ((float) i * 4) - 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 600.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
-	for (int i = 11; i < 21; i++) {
-		bodies[i] = new Body("Planet" + i, "Mars.bmp", 3.00300f, Vec3(ScreenSize.x + ((float) i * 4), ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	/// for 10 < i < 20
+	for (int i = 0; i < 20; i++) {
+		bodies[i + 20] = new Body("Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + ((float) i * 4) + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, -600.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
-	for (int i = 21; i < 35; i++) {
-		bodies[i] = new Body("Small moon" + i, "Moon.bmp", 0.037074f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2 - ((float) i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	///for 20 < i < 30
+	for (int i = 0; i < 20; i++) {
+		bodies[i + 40] = new Body("Moon.bmp", 0.037074f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2 - (float) i - 4, 0.0f), Vec3(500.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
-	for (int i = 35; i < 51; i++) {
-		bodies[i] = new Body("Small moon" + i, "Moon.bmp", 0.037074f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2 + ((float) i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	/// for 30 < i < 40
+	for (int i = 0; i < 20; i++) {
+		bodies[i + 60] = new Body("Moon.bmp", 0.037074f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2 + (float) i + 4, 0.0f), Vec3(-500.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
-	for (int i = 51; i < NUM_BODIES; i++) {
-		bodies[i] = new Body("Smallobject3" + i, "Asteroid.bmp", 0.0002625f, Vec3((float) i + 2, ScreenSize.y - ((float) i + 2), 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	for (int i = 80; i < NUM_BODIES; i++) {
+		bodies[i] = new Body("Asteroid.bmp", 0.0002625f, Vec3(i - 80, 1.5f, 0.0f), Vec3(500.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
+
+
 	//bodies[1] = new Body("Planet1", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x/2 - 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	//bodies[2] = new Body("Planet2", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	//bodies[3] = new Body("Small moon1", "Moon.bmp", 0.037074f, Vec3(2.0f, 4.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
@@ -82,7 +91,7 @@ void Assignment3::Update(const float time) {
 	if (btnPressed) {
 		elapsedTime += time;
 
-		AGravity(bodies, NUM_BODIES);
+		Gravity(bodies, NUM_BODIES);
 
 		for (int i = 0; i < NUM_BODIES; i++) {
 			for (int j = 0; j < NUM_BODIES; j++) {
@@ -101,27 +110,7 @@ void Assignment3::Update(const float time) {
 	}
 }
 
-void Assignment3::Gravity() {
-	for each(Body* body in bodies) {
-		if (body->name != "Sun") {
-			Vec3 a;
-			float a_Mag, gravityA;
-
-			a = bodies[0]->pos - body->pos;
-
-			a_Mag = VMath::mag(a);
-			a = VMath::normalize(a);
-
-			gravityA = 0.00000000006673f * (bodies[0]->mass * body->mass) / pow(a_Mag, 2);
-			a = a* gravityA;
-
-			body->ApplyForce(a);
-		}
-	}
-}
-
-
-void Assignment3::AGravity(Body* objects[], int num_Objects) {
+void Assignment3::Gravity(Body* objects[], int num_Objects) {
 	for (int j = 0; j < num_Objects; j++) {
 		Vec3* force = new Vec3[num_Objects];
 		for (int i = 0; i < num_Objects; i++) {
@@ -152,8 +141,8 @@ void Assignment3::Render() {
 		Vec3 screenCoords = projectionMatrix * body->pos;
 		imageRectangle.h = body->getImage()->h;
 		imageRectangle.w = body->getImage()->w;
-		imageRectangle.x = screenCoords.x; /// implicit type conversions BAD - probably causes a compiler warning
-		imageRectangle.y = screenCoords.y; /// implicit type conversions BAD - probably causes a compiler warning
+		imageRectangle.x = screenCoords.x - body->getImage()->w / 2.0f; /// implicit type conversions BAD - probably causes a compiler warning
+		imageRectangle.y = screenCoords.y - body->getImage()->w / 2.0f; /// implicit type conversions BAD - probably causes a compiler warning
 
 		SDL_BlitSurface(body->getImage(), nullptr, screenSurface, &imageRectangle);
 	}

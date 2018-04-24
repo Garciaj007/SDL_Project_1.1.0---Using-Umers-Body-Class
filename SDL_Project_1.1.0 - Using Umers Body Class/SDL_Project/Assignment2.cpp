@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "VMath.h"
 #include <iostream>
+#include "Collider.h"
 Assignment2::Assignment2(SDL_Window* sdlWindow_) {
 	window = sdlWindow_;
 	elapsedTime = 0.0f;
@@ -17,16 +18,27 @@ bool Assignment2::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window, &w, &h);
 
-	projectionMatrix = MMath::viewportNDC(w, h) * MMath::orthographic(0.0f, 30.0f, 0.0f, 15.0f, 0.0f, 1.0f);
+	Vec3 ScreenSize = Vec3(60.0, 60.0, 0.0f);
+	ScreenSize.print();
+	projectionMatrix = MMath::viewportNDC(w, h) * MMath::orthographic(0.0f, 60.0f, 0.0f, 60.0f, 0.0f, 1.0f);
+	Matrix4 ipm = MMath::inverse(projectionMatrix);
 
-	/*for (int i = 0; i < NUM_BODIES; i++) {
-	bodies[i] = new Body("jetskiSmall.bmp", 2.0f, Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.00f, 0.0f));
-	}*/
+	bodies[0] = new Body("Sun.bmp", 1500.0f, Vec3(ScreenSize.x / 4, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	bodies[1] = new Body("Mars.bmp", 0.1f, Vec3(ScreenSize.x / 2, ScreenSize.y / 2, 0.0f), Vec3(7.0f, -14.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	bodies[2] = new Body("SunBlue.bmp", 2000.0f, Vec3(ScreenSize.x / 2 + ScreenSize.x / 4, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 
-	bodies[0] = new Body("Sun.bmp", 150.0f, Vec3(5.0f, 5.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[1] = new Body("Mars.bmp", 1.0f, Vec3(16.0f, 9.0f, 0.0f), Vec3(6.0f, -3.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
-	bodies[2] = new Body("SunBlue.bmp", 200.0f, Vec3(20.0f, 13.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
+	for each (Body* body in bodies)
+	{
+		Vec3 upperLeft(0.0f, 0.0f, 0.0f);
+		Vec3 lowerRight(body->getImage()->w, body->getImage()->h, 0.0f);
 
+		upperLeft = ipm * upperLeft;
+		lowerRight = ipm * upperLeft;
+
+		float radius = (lowerRight.x - upperLeft.x) / 2.0f;
+		body->radius = radius;
+
+	}
 	
 
 	if (bodies[0] == nullptr) {
@@ -48,19 +60,26 @@ void Assignment2::Update(const float time) {
 	Vec3 a, b;
 	float a_Mag, b_Mag, gravityA, gravityB;
 
-	VMath math;
-
 	if (btnPressed) {
 		elapsedTime += time;
+		for (int i = 0; i < NUM_BODIES; i++) {
+			for (int j = 0; j < NUM_BODIES; j++) {
+				if (i != j) {
+					if (Collider::Collided(*bodies[i], *bodies[j])) {
+						Collider::HandleCollision(*bodies[i], *bodies[j]);
+					}
+				}
+			}
+		}
 
 		a = bodies[0]->pos - bodies[1]->pos;
 		b = bodies[2]->pos - bodies[1]->pos;
 
-		a_Mag = math.mag(a);
-		b_Mag = math.mag(b);
+		a_Mag = VMath::mag(a);
+		b_Mag = VMath::mag(b);
 
-		a = math.normalize(a);
-		b = math.normalize(b);
+		a = VMath::normalize(a);
+		b = VMath::normalize(b);
 
 		gravityA = (bodies[0]->mass*bodies[1]->mass) / (a_Mag * a_Mag);
 		gravityB = (bodies[2]->mass*bodies[1]->mass) / (b_Mag * b_Mag);
@@ -71,6 +90,8 @@ void Assignment2::Update(const float time) {
 		a = a + b;
 
 		bodies[1]->ApplyForce(a);
+
+		
 
 		for each(Body* body in bodies) {
 			if (body) body->Update(time);
@@ -90,8 +111,8 @@ void Assignment2::Render() {
 		Vec3 screenCoords = projectionMatrix * body->pos;
 		imageRectangle.h = body->getImage()->h;
 		imageRectangle.w = body->getImage()->w;
-		imageRectangle.x = screenCoords.x; /// implicit type conversions BAD - probably causes a compiler warning
-		imageRectangle.y = screenCoords.y; /// implicit type conversions BAD - probably causes a compiler warning
+		imageRectangle.x = screenCoords.x - body->getImage()->w / 2.0f;; /// implicit type conversions BAD - probably causes a compiler warning
+		imageRectangle.y = screenCoords.y - body->getImage()->h / 2.0f;; /// implicit type conversions BAD - probably causes a compiler warning
 
 		SDL_BlitSurface(body->getImage(), nullptr, screenSurface, &imageRectangle);
 	}

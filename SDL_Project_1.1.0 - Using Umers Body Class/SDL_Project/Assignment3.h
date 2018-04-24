@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include <SDL.h>
 
-#define NUM_BODIES 100
+#define NUM_BODIES 150
 
 using namespace MATH;
 class Assignment3 : public Scene {
@@ -24,8 +24,7 @@ public:
 	bool OnCreate();
 	void OnDestroy();
 	void Update(const float time);
-	void Gravity();
-	void AGravity(Body* bodies[], int length);
+	void Gravity(Body* bodies[], int length);
 	void Render();
 	void HandleEvents(const SDL_Event &e);
 };
