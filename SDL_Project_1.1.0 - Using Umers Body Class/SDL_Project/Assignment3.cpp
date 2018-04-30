@@ -50,6 +50,10 @@ bool Assignment3::OnCreate() {
 		bodies[i] = new Body("Asteroid.bmp", 0.0002625f, Vec3(i - 80, 1.5f, 0.0f), Vec3(500.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	}
 
+	if (bodies[1] != nullptr) {
+		delete bodies[1];
+	}
+
 
 	//bodies[1] = new Body("Planet1", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x/2 - 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, -500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
 	//bodies[2] = new Body("Planet2", "Mars.bmp", 3.00300f, Vec3(ScreenSize.x / 2 + 4.0f, ScreenSize.y / 2, 0.0f), Vec3(0.0f, 500.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f));
@@ -66,7 +70,10 @@ bool Assignment3::OnCreate() {
 		upperLeft = ipm * upperLeft;
 		lowerRight = ipm * lowerRight;
 
-		float radius = (lowerRight.x - upperLeft.x) / 2.0f;
+		float width = (lowerRight.x - upperLeft.x) / 2.0f;
+		float height = (lowerRight.y - upperLeft.y) / 2.0f;
+
+		float radius = sqrtf((width * width) + (height * height));
 
 		bodies[i]->radius = radius;
 	}

@@ -12,7 +12,7 @@ bool Collider::Collided(const Body &b1, const Body &b2){
 }
 
 void Collider::HandleCollision(Body& b1, Body& b2) {
-	float epsilon = 0.0f;
+	float epsilon = 0.5f;
 	Vec3 normal = b2.pos - b1.pos;
 	normal = VMath::normalize(normal);
 
