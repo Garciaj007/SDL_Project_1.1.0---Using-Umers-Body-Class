@@ -1,1 +1,39 @@
-﻿
+﻿  Assignment1.cpp
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment1.cpp(70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment1.cpp(71): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Window.cpp
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\window.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\window.cpp(9): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\window.cpp(20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  VMath.cpp
+  Timer.cpp
+  MMath.cpp
+  Main.cpp
+  GameManager.cpp
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\window.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment2.h(8): warning C4005: 'NUM_BODIES': macro redefinition
+  d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment1.h(8): note: see previous definition of 'NUM_BODIES'
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment3.h(8): warning C4005: 'NUM_BODIES': macro redefinition
+  d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment2.h(8): note: see previous definition of 'NUM_BODIES'
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\collisionstest.h(8): warning C4005: 'NUM_BODIES': macro redefinition
+  d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment3.h(8): note: see previous definition of 'NUM_BODIES'
+  CollisionsTest.cpp
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\collisionstest.cpp(28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\collisionstest.cpp(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\collisionstest.cpp(92): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\collisionstest.cpp(93): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Collider.cpp
+  Body.cpp
+  Assignment3.cpp
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment3.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment3.cpp(68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment3.cpp(151): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment3.cpp(152): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Assignment2.cpp
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment2.cpp(33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment2.cpp(114): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\coding projects\c++\sdl_project_1.1.0---using-umers-body-class\sdl_project_1.1.0 - using umers body class\sdl_project\assignment2.cpp(115): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+     Creating library D:\Coding Projects\C++\SDL_Project_1.1.0---Using-Umers-Body-Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.lib and object D:\Coding Projects\C++\SDL_Project_1.1.0---Using-Umers-Body-Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.exp
+  SDL_Project.vcxproj -> D:\Coding Projects\C++\SDL_Project_1.1.0---Using-Umers-Body-Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.exe
+  SDL_Project.vcxproj -> D:\Coding Projects\C++\SDL_Project_1.1.0---Using-Umers-Body-Class\SDL_Project_1.1.0 - Using Umers Body Class\Debug\SDL_Project.pdb (Partial PDB)
